@@ -10,12 +10,13 @@ import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useState} from 'react';
 import WorkIcon from '@mui/icons-material/Work';
 import Button from '@mui/material/Button';
 import {useSelector,useDispatch} from 'react-redux';
 import { selectListaTodo } from '../redux/userSlicer';
-import {changeUser} from '../redux/userSlicer';
+import {changeLista} from '../redux/userSlicer';
+
+
 
 
 export default function Lista({voltar}) {
@@ -27,8 +28,10 @@ export default function Lista({voltar}) {
   const apagar=(index)=>{
     const lista = [...listaTodo];
     lista.splice(index,1);
-    dispatch(changeUser(lista));
-  }
+    dispatch(changeLista(lista));
+localStorage.setItem("listaTodo",JSON.stringify(lista));
+  };
+
 
   return (
 

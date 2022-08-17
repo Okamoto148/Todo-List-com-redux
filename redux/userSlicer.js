@@ -4,19 +4,27 @@ export const slice = createSlice({
   name: 'listaTodo',
 
   initialState:{
+    editar:true,
     listaTodo:[],
   },
   reducers:{
-    changeUser(state,{payload}){
+    changeLista(state,{payload}){
       
       return{
-        ...state, listaTodo: payload
+        ...state, listaTodo: payload, editar: false
     }
-  }
+  },
+    voltar2(state){
+      return{
+        ...state, editar: true
+      }
+    }
   }
   
 })
 
-export const {changeUser} =slice.actions;
+export const {changeLista} =slice.actions;
+export const {voltar2} =slice.actions;
 export default slice.reducer;
 export const selectListaTodo = (state) =>state.listaTodo;
+

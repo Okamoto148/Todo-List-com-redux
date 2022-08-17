@@ -3,52 +3,42 @@ import './App.css';
 import Header from  '../Components/Header';
 import Lista from '../Components/Lista';
 import InputText from '../Components/InputText'
-import {useState} from 'react';
-import {changeUser} from '../redux/userSlicer';
+import {useState, useEffect} from 'react';
+import {changeLista} from '../redux/userSlicer';
 import {useDispatch} from 'react-redux';
 import { selectListaTodo } from '../redux/userSlicer';
 import {useSelector} from 'react-redux';
+import {voltar2} from '../redux/userSlicer';
+
+
 
 
 function App() {
-const [editar, setEditar]=useState(true);
 const [todo,setTodo]=useState("");
 const [id,setId]=useState(0);
 const dispatch =useDispatch();
 const listaTodo=useSelector(selectListaTodo).listaTodo;
+const editar=useSelector(selectListaTodo).editar;
+
+useEffect(()=>{
+  const lista = localStorage.getItem("listaTodo");
+  if(lista){
+  dispatch(changeLista(JSON.parse(lista)));
+    }
+},[]);
 
   
 
-
-const index = (index) => {
-        apagar(index);
-      };
-
-
-
-
-  
 
   function gravar(){
   const lista = [...listaTodo, {todo: todo, id: id}];
   setId(id+1);
-  dispatch(changeUser(lista));
-  setEditar(false);
+  dispatch(changeLista(lista));
   setTodo("");
+  localStorage.setItem("listaTodo",JSON.stringify(lista));
     
   };
 
-  function voltar(){
-     setEditar(true);
-  };
-
-  function apagar(index){
-    const lista = [...listaTodo];
-    lista.splice(index,1);
-    setListaTodo(lista);
-    dispatch(changeUser(lista));
-    
-  };
 
 
 
@@ -60,7 +50,7 @@ const index = (index) => {
      {editar && (
                 <InputText  onChangeInput={(e)=>setTodo(e)} gravar={gravar} value={todo} />
                        )}
-     {!editar && <Lista voltar={voltar}/>}
+     {!editar && <Lista voltar={()=>dispatch(voltar2())}/>}
 
    </>
   
