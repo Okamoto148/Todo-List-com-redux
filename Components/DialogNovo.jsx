@@ -13,9 +13,6 @@ export default function DialogNovo({informacao,titulo,open, handleClickOpen, han
 
   return (
     <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        {botao}
-      </Button>
       <Dialog
         open={open}
         onClose={handleClose}

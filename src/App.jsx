@@ -9,6 +9,9 @@ import {useDispatch} from 'react-redux';
 import { selectListaTodo } from '../redux/userSlicer';
 import {useSelector} from 'react-redux';
 import {voltar2} from '../redux/userSlicer';
+import { dialogNovo } from '../redux/userSlicer';
+import {fechar} from '../redux/userSlicer';
+
 
 
 
@@ -19,6 +22,7 @@ const [id,setId]=useState(0);
 const dispatch =useDispatch();
 const listaTodo=useSelector(selectListaTodo).listaTodo;
 const editar=useSelector(selectListaTodo).editar;
+const open=useSelector(selectListaTodo).open;
 
 useEffect(()=>{
   const lista = localStorage.getItem("listaTodo");
@@ -32,12 +36,12 @@ useEffect(()=>{
 
   function gravar(){
     if(!todo){
-      
+  dispatch(dialogNovo());
     }else{
   const lista = [...listaTodo, {todo: todo, id: id}];
   setId(id+1);
   dispatch(changeLista(lista));
-  setTodo("");
+    setTodo("");
   localStorage.setItem("listaTodo",JSON.stringify(lista));
       }
     
@@ -52,7 +56,7 @@ useEffect(()=>{
    <>
      <Header/>
      {editar && (
-                <InputText  onChangeInput={(e)=>setTodo(e)} gravar={gravar} value={todo} />
+                <InputText  onChangeInput={(e)=>setTodo(e)} gravar={gravar} value={todo} open={open} handleClose={()=>dispatch(fechar())}/>
                        )}
      {!editar && <Lista voltar={()=>dispatch(voltar2())}/>}
 
