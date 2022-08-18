@@ -31,11 +31,15 @@ useEffect(()=>{
 
 
   function gravar(){
+    if(!todo){
+      
+    }else{
   const lista = [...listaTodo, {todo: todo, id: id}];
   setId(id+1);
   dispatch(changeLista(lista));
   setTodo("");
   localStorage.setItem("listaTodo",JSON.stringify(lista));
+      }
     
   };
 
