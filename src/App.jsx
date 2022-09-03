@@ -66,7 +66,7 @@ useEffect(()=>{
       const lista = {todo: todo, id: todo2.id};
       
       dispatch(editarGravar(lista));
-     
+     localStorage.setItem("listaTodo",JSON.stringify(lista));
       
       
     }else{
