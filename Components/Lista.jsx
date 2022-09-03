@@ -15,6 +15,8 @@ import Button from '@mui/material/Button';
 import {useSelector,useDispatch} from 'react-redux';
 import { selectListaTodo } from '../redux/userSlicer';
 import {changeLista} from '../redux/userSlicer';
+import {editar2} from '../redux/userSlicer';
+import EditIcon from '@mui/icons-material/Edit';
 
 
 
@@ -32,6 +34,11 @@ export default function Lista({voltar}) {
 localStorage.setItem("listaTodo",JSON.stringify(lista));
   };
 
+  function editar(index){
+    const lista = listaTodo[index]
+   dispatch(editar2(lista));
+  }
+
 
   return (
 
@@ -42,7 +49,9 @@ localStorage.setItem("listaTodo",JSON.stringify(lista));
     <ListItem
                   secondaryAction={
                     <IconButton edge="end" aria-label="delete">
+                      <EditIcon onClick={()=>editar(index)}/>
                       <DeleteIcon onClick={()=>apagar(index)}/>
+                      
                     </IconButton>
                   }
                 >

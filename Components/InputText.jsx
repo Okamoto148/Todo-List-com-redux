@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import DialogNovo from './DialogNovo';
 
 
-export default function InputText({onChangeInput,gravar, value="value", open,handleClickOpen, handleClose }){
+export default function InputText({onChangeInput,gravar, value="", open,handleClickOpen, handleClose }){
 
   
 
